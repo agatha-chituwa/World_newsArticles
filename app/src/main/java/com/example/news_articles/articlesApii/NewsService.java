@@ -9,7 +9,7 @@ import retrofit.http.Query;
 
 public interface NewsService {
 
-    @GET("top-headlines?country=us")
-    Single<ArticleNetworkResponse> getNewsArticles(@Query("key") String key);
+    @GET("top-headlines")
+    Single<ArticleNetworkResponse> getNewsArticles(@Query("apiKey") String key, @Query("country") String country);
 
 }
