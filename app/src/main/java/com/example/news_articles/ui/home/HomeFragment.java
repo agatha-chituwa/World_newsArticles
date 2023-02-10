@@ -1,6 +1,7 @@
 package com.example.news_articles.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,27 +14,27 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.news_articles.R;
+import com.example.news_articles.articles.ArticlesViewModel;
 import com.example.news_articles.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
-
-    private HomeViewModel homeViewModel;
+    private static final String TAG = "HomeFragment";
+    private ArticlesViewModel articlesViewModel;
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        articlesViewModel=
+                new ViewModelProvider(this).get(ArticlesViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
+
+        articlesViewModel.getArticles();
+        //
+        articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
+            Log.e(TAG, articleNetworkResponse.getStatus());
         });
         return root;
     }
