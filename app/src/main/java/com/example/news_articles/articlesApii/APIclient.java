@@ -1,12 +1,12 @@
 package com.example.news_articles.articlesApii;
 
-import com.example.news_articles.utils.Constants;
 
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.Retrofit;
 
 import static com.example.news_articles.utils.Constants.BASE_URL;
+
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIclient {
 
@@ -21,7 +21,7 @@ public class APIclient {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         newsService = retrofit.create(NewsService.class);
     }
