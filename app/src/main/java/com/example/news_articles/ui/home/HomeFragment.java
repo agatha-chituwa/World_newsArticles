@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
         articlesViewModel.getArticles();
         //
         articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
-            Log.e(TAG, articleNetworkResponse.getStatus());
+            Log.e(TAG, articleNetworkResponse.getArticles().toString());
         });
         return root;
     }
