@@ -5,6 +5,7 @@ package com.example.news_articles.articlesApii;
 import static com.example.news_articles.utils.Constants.BASE_URL;
 
 import retrofit2.Retrofit;
+
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 

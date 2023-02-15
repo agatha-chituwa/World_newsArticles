@@ -24,17 +24,16 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        articlesViewModel=
-                new ViewModelProvider(this).get(ArticlesViewModel.class);
+        articlesViewModel= new ViewModelProvider(this).get(ArticlesViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
 
-        articlesViewModel.getArticles();
+        articlesViewModel.getArti();
         //
         articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
-            Log.e(TAG, articleNetworkResponse.getArticles().toString());
+            Log.d(TAG, articleNetworkResponse.getArticles().toString());
         });
         return root;
     }
