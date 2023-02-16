@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
 
-        articlesViewModel.getArti();
+        articlesViewModel.getArticles();
         //
         articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
             Log.d(TAG, articleNetworkResponse.getArticles().toString());
