@@ -15,15 +15,17 @@ import static com.example.news_articles.utils.Constants.API_KEY;
 
 public class Repository {
 
+    private static Repository instance;
 
-    private final NewsService apiService;
-
-    public Repository() {
-        apiService = APIclient.getInstance().getApi();
-    }
 
     public Single<ArticleNetworkResponse> getArticles() {
-        return apiService.getNewsArticles(API_KEY, "us");
+        return APIclient.getInstance().getApi().getNewsArticles(API_KEY, "us");
     }
 
+    public static synchronized Repository getInstance() {
+        if (instance == null) {
+            instance = new Repository();
+        }
+        return instance;
+    }
 }

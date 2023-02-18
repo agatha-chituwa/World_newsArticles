@@ -20,16 +20,13 @@ public class ArticlesViewModel extends ViewModel {
 
 
     private static final String TAG = "ArticlesViewModel";
-    private final Repository repository;
+
 
     public MutableLiveData<ArticleNetworkResponse> articles = new MutableLiveData<>();
 
-    public ArticlesViewModel() {
-        repository = new Repository();
-    }
 
     public void getArticles() {
-        repository.getArticles()
+        Repository.getInstance().getArticles()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(articleNetworkResponse -> {
