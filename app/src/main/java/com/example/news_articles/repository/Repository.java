@@ -22,6 +22,7 @@ public class Repository {
         return APIclient.getInstance().getApi().getNewsArticles(API_KEY, "us");
     }
 
+    // singleton instance
     public static synchronized Repository getInstance() {
         if (instance == null) {
             instance = new Repository();

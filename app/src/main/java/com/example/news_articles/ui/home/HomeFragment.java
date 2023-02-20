@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.news_articles.R;
+import com.example.news_articles.articles.ArticlesViewFactory;
 import com.example.news_articles.articles.ArticlesViewModel;
 import com.example.news_articles.databinding.FragmentHomeBinding;
 
@@ -24,7 +25,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        articlesViewModel= new ViewModelProvider(this).get(ArticlesViewModel.class);
+        articlesViewModel= new ViewModelProvider(this, new ArticlesViewFactory()).get(ArticlesViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
