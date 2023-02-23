@@ -93,4 +93,6 @@ public class Article {
                 ", content='" + content + '\'' +
                 '}';
     }
+
+
 }

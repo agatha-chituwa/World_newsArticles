@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ArticleNetworkResponse {
 
+
     @SerializedName("status")
     private String status;
 
@@ -35,6 +36,7 @@ public class ArticleNetworkResponse {
     }
 
     public List<Article> getArticles() {
+
         return articles;
     }
 }
