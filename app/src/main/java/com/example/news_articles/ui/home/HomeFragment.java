@@ -45,14 +45,20 @@ public class HomeFragment extends Fragment {
 
         RecyclerView articlesRecyclerView = binding.articlesRecyclerView;
         articlesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ArticlesViewAdapter articlesViewAdapter = new ArticlesViewAdapter(new ArrayList<>());
-        articlesRecyclerView.setAdapter(articlesViewAdapter);
+
 
         articlesViewModel.getArticles();
         articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
             List<Article> articles = articleNetworkResponse.getArticles();
-            articlesViewAdapter.articleList = articles;
-            articlesViewAdapter.notifyDataSetChanged();
+            if(articles.size() > 0){
+                ArticlesViewAdapter articlesViewAdapter = new ArticlesViewAdapter(new ArrayList<>());
+                articlesRecyclerView.setAdapter(articlesViewAdapter);
+                articlesViewAdapter.articleList = articles;
+                articlesViewAdapter.notifyDataSetChanged();
+                Log.d("ey", "its okay ");
+
+            }
+
         });
 
 
