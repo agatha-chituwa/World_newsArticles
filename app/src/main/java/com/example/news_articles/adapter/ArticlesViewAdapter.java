@@ -71,7 +71,10 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
                         .placeholder(R.drawable.ic_dashboard_black_24dp)
                         .into(imageView);
             } else {
-                imageView.setVisibility(View.GONE);
+                Glide.with(itemView.getContext())
+                        //this will be the default img
+                        .load(R.drawable.ic_launcher_background)
+                        .into(imageView);
             }
 
 
