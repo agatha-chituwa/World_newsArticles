@@ -18,18 +18,21 @@ import java.util.List;
 
 public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapter.ArticleViewHolder> {
     public List<Article> articleList;
+    //how viewHolder know the on article listener is
+    private ArticleViewHolder.OnArticleClick onArticleClick;
 
     private static ArticlesViewAdapter articlesViewAdapter;
-    public ArticlesViewAdapter(List<Article> articleList) {
+    public ArticlesViewAdapter(List<Article> articleList, ArticleViewHolder.OnArticleClick onArticleClick) {
 
         this.articleList = articleList;
+        this.onArticleClick = onArticleClick;
     }
 
     @NonNull
     @Override
     public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home, parent, false);
-        return new ArticleViewHolder(view);
+        return new ArticleViewHolder(view, onArticleClick);
     }
 
     @Override
@@ -43,20 +46,26 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
         return articleList.size();
     }
 
-    public static class ArticleViewHolder extends RecyclerView.ViewHolder {
+    //changed viewLister by implementing onclickListener
+    public static class ArticleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView titleTextView;
         private TextView descriptionTextView;
         private ImageView imageView;
         private TextView sourceTextView;
         private TextView publishedAtTextView;
 
-        public ArticleViewHolder(@NonNull View itemView) {
+        OnArticleClick onArticleClick;
+        public ArticleViewHolder(@NonNull View itemView, OnArticleClick onArticleClick) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
             imageView = itemView.findViewById(R.id.imageView);
             sourceTextView = itemView.findViewById(R.id.sourceTextView);
             publishedAtTextView = itemView.findViewById(R.id.publishedAtTextView);
+            this.onArticleClick = onArticleClick;
+
+            //attach listener to the entire view holder
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Article article) {
@@ -79,6 +88,18 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
 
 
 
+        }
+
+
+
+        //implemented method of Onclick listener class
+        @Override
+        public void onClick(View v) {
+            onArticleClick.onArticleClick(getAdapterPosition());
+        }
+
+        public interface OnArticleClick{
+            void onArticleClick(int position);
         }
     }
 }

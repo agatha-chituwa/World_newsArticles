@@ -1,6 +1,8 @@
 package com.example.news_articles.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,15 +25,16 @@ import com.example.news_articles.articles.Article;
 import com.example.news_articles.articles.ArticlesViewFactory;
 import com.example.news_articles.articles.ArticlesViewModel;
 import com.example.news_articles.databinding.FragmentHomeBinding;
+import com.example.news_articles.ui.ArticleActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ArticlesViewAdapter.ArticleViewHolder.OnArticleClick {
     private static final String TAG = "HomeFragment";
     private ArticlesViewModel articlesViewModel;
     private FragmentHomeBinding binding;
-
+    List<Article> articles;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,9 +52,9 @@ public class HomeFragment extends Fragment {
 
         articlesViewModel.getArticles();
         articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
-            List<Article> articles = articleNetworkResponse.getArticles();
+            articles = articleNetworkResponse.getArticles();
             if(articles.size() > 0){
-                ArticlesViewAdapter articlesViewAdapter = new ArticlesViewAdapter(new ArrayList<>());
+                ArticlesViewAdapter articlesViewAdapter = new ArticlesViewAdapter(new ArrayList<>(), this);
                 articlesRecyclerView.setAdapter(articlesViewAdapter);
                 articlesViewAdapter.articleList = articles;
                 articlesViewAdapter.notifyDataSetChanged();
@@ -82,5 +85,13 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+    @Override
+    public void onArticleClick(int position) {
+        Log.d(TAG, "onArticleClick: item clicked " + position);
+        Intent intent = new Intent(getActivity(), ArticleActivity.class);
+        startActivity(intent);
     }
 }
