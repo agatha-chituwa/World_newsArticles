@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.News_articles">
-        <activity android:name=".ui.ArticleActivity"></activity>
+        <activity android:name=".ui.ArticleDetails"></activity>
         <activity
             android:name=".ui.activity2.ArticleDetails"
             android:label="@string/title_activity_article_details"
