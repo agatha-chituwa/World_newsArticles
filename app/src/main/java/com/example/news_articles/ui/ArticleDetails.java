@@ -2,8 +2,12 @@ package com.example.news_articles.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +23,7 @@ public class ArticleDetails extends AppCompatActivity {
     private ImageView imageView;
     private TextView authorTextView;
     private TextView publishedAtTextView;
+    private Button openInBrowserButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +33,39 @@ public class ArticleDetails extends AppCompatActivity {
         if (getIntent().hasExtra("selected article")) {
             Article article = getIntent().getParcelableExtra("selected article");
             titleTextView = findViewById(R.id.article_title);
-            titleTextView.setText(article.getAuthor());
+            titleTextView.setText(article.getTitle());
 
             descriptionTextView = findViewById(R.id.article_description);
             descriptionTextView.setText(article.getDescription());
+
+            if (article.getUrlToImage() != null && !article.getUrlToImage().isEmpty()) {
+                imageView = findViewById(R.id.article_image1);
+                Glide.with(this).load(article.getUrlToImage()).into(imageView);
+            } else {
+
+                imageView = findViewById(R.id.article_image1);
+                Glide.with(this).load(R.drawable.ic_launcher_background).into(imageView);
+            }
+
+
+
+            authorTextView = findViewById(R.id.article_author);
+            authorTextView.setText(article.getAuthor());
+
+            publishedAtTextView = findViewById(R.id.article_published_date1);
+            publishedAtTextView.setText(article.getPublishedAt());
+
+            openInBrowserButton = findViewById(R.id.button);
+            openInBrowserButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String articleUrl = article.getUrl();
+                    if (articleUrl != null && !articleUrl.isEmpty()) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
+                        startActivity(browserIntent);
+                    }
+                }
+            });
 
 //            publishedAtTextView = findViewById(R.id.publishedAtTextView);
 //            publishedAtTextView.setText(article.getPublishedAt());

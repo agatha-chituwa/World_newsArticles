@@ -10,7 +10,7 @@
         android:id="@+id/articlesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purple_200"/>
+        android:background="@color/black"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

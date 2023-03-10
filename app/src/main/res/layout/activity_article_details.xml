@@ -6,7 +6,7 @@
 
 
     <ImageView
-        android:id="@+id/article_image"
+        android:id="@+id/article_image1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop" />
@@ -38,7 +38,7 @@
 
 
     <TextView
-        android:id="@+id/article_published_date"
+        android:id="@+id/article_published_date1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
@@ -53,5 +53,11 @@
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
         android:padding="16dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="visit site" />
 
 </LinearLayout>
