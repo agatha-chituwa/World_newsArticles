@@ -19,7 +19,7 @@ public class Repository {
 
 
     public Single<ArticleNetworkResponse> getArticles() {
-        return APIclient.getInstance().getApi().getNewsArticles(API_KEY, "bitcoin");
+        return APIclient.getInstance().getApi().getNewsArticles(API_KEY, "us");
     }
 
     // singleton instance

@@ -10,7 +10,7 @@ import rx.Single;
 
 public interface NewsService {
 
-    @GET("everything")
-    Single<ArticleNetworkResponse> getNewsArticles(@Query("apiKey") String apiKey, @Query("q") String country);
+    @GET("top-headlines")
+    Single<ArticleNetworkResponse> getNewsArticles(@Query("apiKey") String apiKey, @Query("country") String country);
 
 }
