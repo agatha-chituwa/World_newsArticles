@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <!-- Here you put the rest of your current view-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
 
     <ImageView
         android:id="@+id/article_image1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <TextView
@@ -18,7 +27,8 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:padding="16dp" />
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/article_image1"/>
 
 
     <TextView
@@ -26,7 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:padding="16dp" />
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/article_title"/>
 
     <TextView
         android:id="@+id/article_source"
@@ -34,7 +45,9 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
-        android:padding="16dp" />
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/article_description"
+        />
 
 
     <TextView
@@ -43,7 +56,8 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
-        android:padding="16dp" />
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/article_source"/>
 
 
     <TextView
@@ -52,12 +66,16 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
-        android:padding="16dp" />
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/article_published_date1"/>
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="visit site" />
+        android:text="visit site"
+        app:layout_constraintTop_toBottomOf="@id/article_author"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
