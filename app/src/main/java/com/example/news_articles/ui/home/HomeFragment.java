@@ -59,15 +59,15 @@ public class HomeFragment extends Fragment implements ArticlesViewAdapter.Articl
 
 
         //
-        articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
-
-            List<Article> articles = articleNetworkResponse.getArticles();
-
-            if (articles.size() > 0) {
-                String description = articles.get(0).getDescription();
-                binding.descriptionTextView.setText(description);
-            }
-        });
+//        articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
+//
+//            List<Article> articles = articleNetworkResponse.getArticles();
+//
+//            if (articles.size() > 0) {
+//                String description = articles.get(0).getDescription();
+//                binding.descriptionTextView.setText(description);
+//            }
+//        });
 
 
         return root;
