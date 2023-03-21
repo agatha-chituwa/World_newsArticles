@@ -76,12 +76,12 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
             if (article.getUrlToImage() != null && !article.getUrlToImage().isEmpty()) {
                 Glide.with(itemView.getContext())
                         .load(article.getUrlToImage())
-                        .placeholder(R.drawable.ic_dashboard_black_24dp)
+                        .placeholder(R.drawable.images)
                         .into(imageView);
             } else {
                 Glide.with(itemView.getContext())
                         //this will be the default img
-                        .load(R.drawable.ic_launcher_background)
+                        .load(R.drawable.images)
                         .into(imageView);
             }
 
