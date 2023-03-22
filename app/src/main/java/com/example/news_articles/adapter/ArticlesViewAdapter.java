@@ -76,7 +76,6 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
             if (article.getUrlToImage() != null && !article.getUrlToImage().isEmpty()) {
                 Glide.with(itemView.getContext())
                         .load(article.getUrlToImage())
-                        .placeholder(R.drawable.images)
                         .into(imageView);
             } else {
                 Glide.with(itemView.getContext())
