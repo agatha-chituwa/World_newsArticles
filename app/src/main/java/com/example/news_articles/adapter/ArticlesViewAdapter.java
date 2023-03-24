@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.news_articles.R;
 import com.example.news_articles.articles.Article;
 
@@ -76,6 +77,7 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
             if (article.getUrlToImage() != null && !article.getUrlToImage().isEmpty()) {
                 Glide.with(itemView.getContext())
                         .load(article.getUrlToImage())
+                        .fitCenter()
                         .into(imageView);
             } else {
                 Glide.with(itemView.getContext())
