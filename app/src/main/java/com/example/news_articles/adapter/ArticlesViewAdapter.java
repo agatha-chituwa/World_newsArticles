@@ -23,12 +23,12 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
     //how viewHolder know the on article listener is
     private ArticleViewHolder.OnArticleClick onArticleClick;
 
-
-    // Parse the input date string into a Date object
-    Date date = CalendarApi.parseDate("2023-03-23T19:24:17Z");
-
-    // Format the Date object into the desired output format
-    String outputDate = CalendarApi.formatDate(date, "dd-MMMM-yyyy");
+//
+//    // Parse the input date string into a Date object
+//    Date date = CalendarApi.parseDate("2023-03-23T19:24:17Z");
+//
+//    // Format the Date object into the desired output format
+//    String outputDate = CalendarApi.formatDate(date, "dd-MMMM-yyyy");
 
 
     private static ArticlesViewAdapter articlesViewAdapter;

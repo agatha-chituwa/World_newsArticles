@@ -7,6 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +17,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.news_articles.R;
 import com.example.news_articles.articles.Article;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 
 import static com.example.news_articles.utils.Constants.TEXT_EXTRA;
 
@@ -26,29 +32,42 @@ public class ArticleDetails extends AppCompatActivity {
     private TextView authorTextView;
     private TextView publishedAtTextView;
     private Button openInBrowserButton;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_details);
 
+
         if (getIntent().hasExtra(TEXT_EXTRA)) {
             Article article = getIntent().getParcelableExtra(TEXT_EXTRA);
             titleTextView = findViewById(R.id.article_title);
             titleTextView.setText(article.getTitle());
 
-            descriptionTextView = findViewById(R.id.article_description);
-            descriptionTextView.setText(article.getDescription());
-
+            //for the image
             if (article.getUrlToImage() != null && !article.getUrlToImage().isEmpty()) {
                 imageView = findViewById(R.id.article_image1);
                 Glide.with(this).load(article.getUrlToImage()).into(imageView);
             } else {
 
                 imageView = findViewById(R.id.article_image1);
-                Glide.with(this).load(R.drawable.ic_launcher_background).into(imageView);
+                Glide.with(this).load(R.drawable.images).into(imageView);
             }
 
+            if (article.getContent() != null && !article.getContent().isEmpty()) {
+                descriptionTextView = findViewById(R.id.article_description);
+                descriptionTextView.setText(article.getContent());
+//                openInBrowserButton = findViewById(R.id.button);
+//                openInBrowserButton.setVisibility(View.INVISIBLE);
+
+
+
+            } else {
+                descriptionTextView = findViewById(R.id.article_description);
+                descriptionTextView.setText(article.getDescription());
+
+            }
 
 
             authorTextView = findViewById(R.id.article_author);
@@ -57,17 +76,31 @@ public class ArticleDetails extends AppCompatActivity {
             publishedAtTextView = findViewById(R.id.article_published_date1);
             publishedAtTextView.setText(article.getPublishedAt());
 
-            openInBrowserButton = findViewById(R.id.button);
-            openInBrowserButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String articleUrl = article.getUrl();
-                    if (articleUrl != null && !articleUrl.isEmpty()) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
-                        startActivity(browserIntent);
-                    }
-                }
-            });
+            webView = findViewById(R.id.webview);
+
+
+            WebSettings webSettings = webView.getSettings();
+            webSettings.setJavaScriptEnabled(true);
+
+
+            webView.loadUrl(article.getUrl());
+
+
+
+
+
+
+//            openInBrowserButton = findViewById(R.id.button);
+//            openInBrowserButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    String articleUrl = article.getUrl();
+//                    if (articleUrl != null && !articleUrl.isEmpty()) {
+//                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
+//                        startActivity(browserIntent);
+//                    }
+//                }
+//            });
 
 //            publishedAtTextView = findViewById(R.id.publishedAtTextView);
 //            publishedAtTextView.setText(article.getPublishedAt());
