@@ -1,5 +1,6 @@
 package com.example.news_articles.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,21 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.news_articles.R;
 import com.example.news_articles.articles.Article;
 
+import java.util.Date;
 import java.util.List;
 
 public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapter.ArticleViewHolder> {
     public List<Article> articleList;
     //how viewHolder know the on article listener is
     private ArticleViewHolder.OnArticleClick onArticleClick;
+
+
+    // Parse the input date string into a Date object
+    Date date = CalendarApi.parseDate("2023-03-23T19:24:17Z");
+
+    // Format the Date object into the desired output format
+    String outputDate = CalendarApi.formatDate(date, "dd-MMMM-yyyy");
+
 
     private static ArticlesViewAdapter articlesViewAdapter;
     public ArticlesViewAdapter(List<Article> articleList, ArticleViewHolder.OnArticleClick onArticleClick) {
@@ -68,7 +78,12 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
             itemView.setOnClickListener(this);
         }
 
+
         public void bind(Article article) {
+
+
+
+            Log.d("date", article.getPublishedAt());
             titleTextView.setText( article.getTitle());
             descriptionTextView.setText( article.getDescription());
             sourceTextView.setText(article.getSource().getName());

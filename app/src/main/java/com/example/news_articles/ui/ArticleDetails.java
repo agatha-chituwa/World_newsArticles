@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.example.news_articles.R;
 import com.example.news_articles.articles.Article;
 
+import static com.example.news_articles.utils.Constants.TEXT_EXTRA;
+
 public class ArticleDetails extends AppCompatActivity {
     private static final String TAG = "ActivityDetails";
     TextView textView;
@@ -30,8 +32,8 @@ public class ArticleDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_details);
 
-        if (getIntent().hasExtra("selected article")) {
-            Article article = getIntent().getParcelableExtra("selected article");
+        if (getIntent().hasExtra(TEXT_EXTRA)) {
+            Article article = getIntent().getParcelableExtra(TEXT_EXTRA);
             titleTextView = findViewById(R.id.article_title);
             titleTextView.setText(article.getTitle());
 

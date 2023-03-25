@@ -23,6 +23,8 @@ import com.example.news_articles.ui.ArticleDetails;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.news_articles.utils.Constants.TEXT_EXTRA;
+
 public class HomeFragment extends Fragment implements ArticlesViewAdapter.ArticleViewHolder.OnArticleClick {
     private static final String TAG = "HomeFragment";
     private ArticlesViewModel articlesViewModel;
@@ -85,7 +87,7 @@ public class HomeFragment extends Fragment implements ArticlesViewAdapter.Articl
     public void onArticleClick(int position) {
         Log.d(TAG, "onArticleClick: item clicked " + position);
         Intent intent = new Intent(getActivity(), ArticleDetails.class);
-        intent.putExtra("selected article", articles.get(position));
+        intent.putExtra(TEXT_EXTRA, articles.get(position));
         // Inside the onClick method of the NewsAdapter
         startActivity(intent);
     }
