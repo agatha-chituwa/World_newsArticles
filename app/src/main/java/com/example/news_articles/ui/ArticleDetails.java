@@ -13,6 +13,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.news_articles.R;
@@ -40,41 +41,13 @@ public class ArticleDetails extends AppCompatActivity {
         setContentView(R.layout.activity_article_details);
 
 
+
         if (getIntent().hasExtra(TEXT_EXTRA)) {
             Article article = getIntent().getParcelableExtra(TEXT_EXTRA);
-            titleTextView = findViewById(R.id.article_title);
-            titleTextView.setText(article.getTitle());
+//            titleTextView = findViewById(R.id.article_title);
+//            titleTextView.setText(article.getTitle());
+              this.setTitle(article.getTitle());
 
-            //for the image
-            if (article.getUrlToImage() != null && !article.getUrlToImage().isEmpty()) {
-                imageView = findViewById(R.id.article_image1);
-                Glide.with(this).load(article.getUrlToImage()).into(imageView);
-            } else {
-
-                imageView = findViewById(R.id.article_image1);
-                Glide.with(this).load(R.drawable.images).into(imageView);
-            }
-
-            if (article.getContent() != null && !article.getContent().isEmpty()) {
-                descriptionTextView = findViewById(R.id.article_description);
-                descriptionTextView.setText(article.getContent());
-//                openInBrowserButton = findViewById(R.id.button);
-//                openInBrowserButton.setVisibility(View.INVISIBLE);
-
-
-
-            } else {
-                descriptionTextView = findViewById(R.id.article_description);
-                descriptionTextView.setText(article.getDescription());
-
-            }
-
-
-            authorTextView = findViewById(R.id.article_author);
-            authorTextView.setText(article.getAuthor());
-
-            publishedAtTextView = findViewById(R.id.article_published_date1);
-            publishedAtTextView.setText(article.getPublishedAt());
 
             webView = findViewById(R.id.webview);
 
@@ -131,4 +104,6 @@ public class ArticleDetails extends AppCompatActivity {
 
         }
     }
+
+
 }
