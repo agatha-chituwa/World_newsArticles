@@ -1,5 +1,6 @@
 package com.example.news_articles.adapter;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,25 +16,22 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.news_articles.R;
 import com.example.news_articles.articles.Article;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapter.ArticleViewHolder> {
-    public List<Article> articleList;
-    //how viewHolder know the on article listener is
+    private List<Article> articleList;
+
     private ArticleViewHolder.OnArticleClick onArticleClick;
-
-//
-//    // Parse the input date string into a Date object
-//    Date date = CalendarApi.parseDate("2023-03-23T19:24:17Z");
-//
-//    // Format the Date object into the desired output format
-//    String outputDate = CalendarApi.formatDate(date, "dd-MMMM-yyyy");
-
 
     private static ArticlesViewAdapter articlesViewAdapter;
     public ArticlesViewAdapter(List<Article> articleList, ArticleViewHolder.OnArticleClick onArticleClick) {
-
         this.articleList = articleList;
         this.onArticleClick = onArticleClick;
     }
@@ -48,7 +46,11 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         Article article = articleList.get(position);
-        holder.bind(article);
+        try {
+            holder.bind(article);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -79,7 +81,8 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
         }
 
 
-        public void bind(Article article) {
+        @SuppressLint("SetTextI18n")
+        public void bind(Article article) throws ParseException {
 
 
 
@@ -87,7 +90,17 @@ public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapte
             titleTextView.setText( article.getTitle());
             descriptionTextView.setText( article.getDescription());
             sourceTextView.setText(article.getSource().getName());
-            publishedAtTextView.setText(article.getPublishedAt());
+
+            //parse date
+            Date parse = new SimpleDateFormat("yyyy-MM-dd").parse(article.getPublishedAt());
+            Calendar calendar= Calendar.getInstance();
+            calendar.setTime(parse);
+
+            String monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+            int year = calendar.get(Calendar.YEAR);
+            int date= calendar.get(Calendar.DATE);
+
+            publishedAtTextView.setText(date+" "+monthName+" "+year);
             // Load the image using Glide library
             if (article.getUrlToImage() != null && !article.getUrlToImage().isEmpty()) {
                 Glide.with(itemView.getContext())

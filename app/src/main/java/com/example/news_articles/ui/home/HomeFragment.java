@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import com.example.news_articles.articles.ArticlesViewFactory;
 import com.example.news_articles.articles.ArticlesViewModel;
 import com.example.news_articles.databinding.FragmentHomeBinding;
 import com.example.news_articles.ui.ArticleDetails;
+import com.example.news_articles.utils.LoadingStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class HomeFragment extends Fragment implements ArticlesViewAdapter.Articl
     private static final String TAG = "HomeFragment";
     private ArticlesViewModel articlesViewModel;
     private FragmentHomeBinding binding;
+    private ProgressBar loadingAllArticleProgress;
     List<Article> articles;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,34 +47,29 @@ public class HomeFragment extends Fragment implements ArticlesViewAdapter.Articl
         RecyclerView articlesRecyclerView = binding.articlesRecyclerView;
         articlesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
         articlesViewModel.getArticles();
+        articlesViewModel.loadingStatus.observe(getViewLifecycleOwner(), loadingStatus->{
+            switch (loadingStatus){
+                case LOADING:
+                    binding.loadingAllArticleProgress.setVisibility(View.VISIBLE);
+                    break;
+                case FINISHED:
+                    binding.loadingAllArticleProgress.setVisibility(View.GONE);
+                case ERROR:
+                    binding.loadingAllArticleProgress.setVisibility(View.GONE);
+                default:
+                    break;
+            }
+        });
         articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
             articles = articleNetworkResponse.getArticles();
             if(articles.size() > 0){
-                ArticlesViewAdapter articlesViewAdapter = new ArticlesViewAdapter(new ArrayList<>(), this);
+                //create and set the article at the initialization of the adapter
+                ArticlesViewAdapter articlesViewAdapter = new ArticlesViewAdapter(articles, this);
                 articlesRecyclerView.setAdapter(articlesViewAdapter);
-                articlesViewAdapter.articleList = articles;
-                articlesViewAdapter.notifyDataSetChanged();
-                Log.d("ey", "its okay ");
-
             }
 
         });
-
-
-        //
-//        articlesViewModel.articles.observe(getViewLifecycleOwner(), articleNetworkResponse -> {
-//
-//            List<Article> articles = articleNetworkResponse.getArticles();
-//
-//            if (articles.size() > 0) {
-//                String description = articles.get(0).getDescription();
-//                binding.descriptionTextView.setText(description);
-//            }
-//        });
-
-
         return root;
     }
 
@@ -88,7 +86,6 @@ public class HomeFragment extends Fragment implements ArticlesViewAdapter.Articl
         Log.d(TAG, "onArticleClick: item clicked " + position);
         Intent intent = new Intent(getActivity(), ArticleDetails.class);
         intent.putExtra(TEXT_EXTRA, articles.get(position));
-        // Inside the onClick method of the NewsAdapter
         startActivity(intent);
     }
 }
