@@ -2,6 +2,8 @@ package com.example.news_articles.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,10 +14,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.news_articles.MainActivity;
 import com.example.news_articles.R;
 import com.example.news_articles.articles.Article;
 
@@ -25,85 +30,52 @@ import java.util.Calendar;
 import static com.example.news_articles.utils.Constants.TEXT_EXTRA;
 
 public class ArticleDetails extends AppCompatActivity {
-    private static final String TAG = "ActivityDetails";
-    TextView textView;
-    private TextView titleTextView;
-    private TextView descriptionTextView;
-    private ImageView imageView;
-    private TextView authorTextView;
-    private TextView publishedAtTextView;
-    private Button openInBrowserButton;
+    private ProgressBar loadingArticle;
     private WebView webView;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_details);
+        loadingArticle = findViewById(R.id.loadArticleProgressBar);
 
 
 
         if (getIntent().hasExtra(TEXT_EXTRA)) {
             Article article = getIntent().getParcelableExtra(TEXT_EXTRA);
-//            titleTextView = findViewById(R.id.article_title);
-//            titleTextView.setText(article.getTitle());
-              this.setTitle(article.getTitle());
+//
+            this.setTitle(article.getTitle());
+            //displays the back button icon
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            this.getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
             webView = findViewById(R.id.webview);
+            webView.getSettings().setJavaScriptEnabled(true);
+            //enable zooming in, for good view on small screens
+            webView.getSettings().setSupportZoom(true);
+            //in built zoom controls
+            webView.getSettings().setBuiltInZoomControls(true);
 
 
-            WebSettings webSettings = webView.getSettings();
-            webSettings.setJavaScriptEnabled(true);
-
+            //tracks loading page progress
+            webView.setWebViewClient(new WebViewClient() {
+               @Override
+                public void onPageFinished(WebView view, String url) {
+                    loadingArticle.setVisibility(View.GONE);
+                }
+            });
 
             webView.loadUrl(article.getUrl());
-
-
-
-
-
-
-//            openInBrowserButton = findViewById(R.id.button);
-//            openInBrowserButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    String articleUrl = article.getUrl();
-//                    if (articleUrl != null && !articleUrl.isEmpty()) {
-//                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
-//                        startActivity(browserIntent);
-//                    }
-//                }
-//            });
-
-//            publishedAtTextView = findViewById(R.id.publishedAtTextView);
-//            publishedAtTextView.setText(article.getPublishedAt());
-//
-//            if (article.getUrlToImage() != null && !article.getUrlToImage().isEmpty()) {
-//
-//                Glide.with(imageView.getContext())
-//                        .load(article.getUrlToImage())
-//                        .placeholder(R.drawable.ic_dashboard_black_24dp)
-//                        .into(imageView);
-//            } else {
-//                Glide.with(imageView.getContext())
-//                        //this will be the default img
-//                        .load(R.drawable.ic_launcher_background)
-//                        .into(imageView);
-//            }
-//
-//        }
-
-
-//
-//        intent.putExtra("title", news.getTitle());
-//        intent.putExtra("description", news.getDescription());
-//        intent.putExtra("image", news.getImageUrl());
-//        intent.putExtra("content", news.getContent());
-//        intent.putExtra("link", news.getLink());
-//        context.startActivity(intent);
 
         }
     }
 
-
+    //get the user back when clicked
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 }
