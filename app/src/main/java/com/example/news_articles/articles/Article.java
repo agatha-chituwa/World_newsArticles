@@ -1,5 +1,6 @@
 package com.example.news_articles.articles;
 
+import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 

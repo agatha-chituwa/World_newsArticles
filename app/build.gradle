@@ -23,9 +23,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+
     }
     buildFeatures {
         viewBinding true
@@ -56,8 +58,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //at first i installed these dependancies i got them from official documentation under Save data in a local database using Room
-    implementation "androidx.room:room-runtime:$room_version"
-     annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     //then i tried installing these im getting same thing no error but build is failing
     //implementation 'android.arch.persistence.room:runtime:1.1.0'
     //annotationProcessor 'android.arch.persistence.room:compiler:1.1.0'
