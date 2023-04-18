@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class ArticlesViewAdapter extends RecyclerView.Adapter<ArticlesViewAdapter.ArticleViewHolder> {
-    private List<Article> articleList;
+    private final List<Article> articleList;
 
-    private ArticleViewHolder.OnArticleClick onArticleClick;
+    private final ArticleViewHolder.OnArticleClick onArticleClick;
 
     private static ArticlesViewAdapter articlesViewAdapter;
     public ArticlesViewAdapter(List<Article> articleList, ArticleViewHolder.OnArticleClick onArticleClick) {
