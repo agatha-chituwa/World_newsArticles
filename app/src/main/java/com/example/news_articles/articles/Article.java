@@ -1,11 +1,14 @@
 package com.example.news_articles.articles;
 
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
+
+
 public class Article implements Parcelable {
 
     @SerializedName("source")
